@@ -1,7 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import { Facebook } from 'expo';
 
-import { FB_APP_ID } from '../private/fb_credentials';
+import { FB_APP_ID } from '../private/credentials';
 import {
   FACEBOOK_LOGIN_SUCCESS,
   FACEBOOK_LOGIN_FAIL
