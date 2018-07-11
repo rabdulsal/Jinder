@@ -34,13 +34,13 @@ class Swipe extends Component {
     const panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (event, gesture) => {
-        position.setValue({ x: gesture.dx, y: gesture.dy })
+        position.setValue({ x: gesture.dx, y: gesture.dy });
       },
       onPanResponderRelease: (event, gesture) => {
         if (gesture.dx > SWIPE_THRESHOLD) {
-          this.forceSwipe(RIGHT_DIRECTION)
+          this.forceSwipe(RIGHT_DIRECTION);
         } else if (gesture.dx < -SWIPE_THRESHOLD) {
-          this.forceSwipe(LEFT_DIRECTION)
+          this.forceSwipe(LEFT_DIRECTION);
         } else {
           this.resetPosition();
         }
@@ -51,7 +51,7 @@ class Swipe extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.data != this.props.data) {
+    if (nextProps.data !== this.props.data) {
       this.setState({ index: 0 });
     }
   }
@@ -62,27 +62,13 @@ class Swipe extends Component {
     LayoutAnimation.spring();
   }
 
-  forceSwipe(direction) {
-    const x = direction === RIGHT_DIRECTION ? SCREEN_WIDTH : -SCREEN_WIDTH
-    Animated.timing(this.state.position, {
-      toValue: { x, y: 0 },
-      duration: SWIPE_OUT_DURATION
-    }).start(() => this.onSwipeComplete(direction));
-  }
-
   onSwipeComplete(direction) {
-    const { onSwipeLeft, onSwipeRight, data } = this.props
+    const { onSwipeLeft, onSwipeRight, data } = this.props;
     const item = data[this.state.index];
 
     direction === RIGHT_DIRECTION ? onSwipeRight(item) : onSwipeLeft(item)
     this.state.position.setValue({ x: 0, y: 0 });
     this.setState({ index: this.state.index + 1 });
-  }
-
-  resetPosition() {
-    Animated.spring(this.state.position, {
-      toValue: { x: 0, y: 0 }
-    }).start();
   }
 
   getCardStyle() {
@@ -96,6 +82,20 @@ class Swipe extends Component {
       ...position.getLayout(),
       transform: [{ rotate }]
     };
+  }
+
+  resetPosition() {
+    Animated.spring(this.state.position, {
+      toValue: { x: 0, y: 0 }
+    }).start();
+  }
+
+  forceSwipe(direction) {
+    const x = direction === RIGHT_DIRECTION ? SCREEN_WIDTH : -SCREEN_WIDTH
+    Animated.timing(this.state.position, {
+      toValue: { x, y: 0 },
+      duration: SWIPE_OUT_DURATION
+    }).start(() => this.onSwipeComplete(direction));
   }
 
   renderCards() {

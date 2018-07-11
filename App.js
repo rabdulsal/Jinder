@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
+import { Icon } from 'react-native-elements';
 
 import store from './store';
 import AuthScreen from './screens/AuthScreen';
@@ -24,7 +25,18 @@ export default class App extends React.Component {
             screen: createStackNavigator({
               review: { screen: ReviewScreen },
               settings: { screen: SettingsScreen }
+            }),
+            navigationOptions: () => ({
+              title: 'Review Jobs',
+              tabBarIcon: ({ tintColor }) => {
+                  return <Icon name="favorite" size={30} color={tintColor} />;
+              }
             })
+          }
+        }, {
+          tabBarPosition: 'bottom', // For Android
+          tabBarOptions: {
+            labelStyle: { fontSize: 12 }
           }
         })
       }
@@ -43,12 +55,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

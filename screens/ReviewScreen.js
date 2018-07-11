@@ -6,13 +6,12 @@ import {
   ScrollView,
   Linking
 } from 'react-native';
-import { Card, Button } from 'react-native-elements';
+import { Card, Button, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { MapView } from 'expo';
 
 class ReviewScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
-      title: 'Review Jobs',
       headerRight: (
         <Button
           title="Settings"
